@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "properties": {
+      "event_id": { "type": "keyword" },
+      "timestamp": { "type": "date" },
+      "year": { "type": "integer" },
+      "platform": { "type": "keyword" },
+      "theme": { "type": "keyword" },
+      "uf": { "type": "keyword" },
+      "municipality_fake": {
+        "type": "text",
+        "fields": { "keyword": { "type": "keyword", "ignore_above": 256 } }
+      },
+      "engagement_count": { "type": "long" },
+      "narrative_label": { "type": "keyword" },
+      "source_channel_fake": { "type": "keyword" }
+    }
+  }
+}

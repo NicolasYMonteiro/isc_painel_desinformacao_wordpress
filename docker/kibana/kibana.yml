@@ -1,0 +1,10 @@
+# Kibana — embed no WordPress (ADR-001 / TASK-004)
+server.host: "0.0.0.0"
+server.publicBaseUrl: "http://localhost:5601"
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+server.securityResponseHeaders.disableEmbedding: false
+csp.frame_ancestors: ["'self'", "http://localhost:8080"]
+
+# Dev: sem telemetria
+telemetry.enabled: false

@@ -1,0 +1,9 @@
+{
+  "result": {
+    "ok": true,
+    "type": "opaque"
+  },
+  "direct": {
+    "status": 200
+  }
+}

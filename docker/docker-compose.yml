@@ -1,0 +1,132 @@
+# DSN-DASH — Docker Compose (TASK-001)
+# Rede: dsn-net | WP:8080 Kibana:5601 ES:9200 Shiny:3838
+
+name: dsn-dash
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: dsn-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${MYSQL_USER:-wp}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wpchangeme}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootchangeme}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - dsn-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-rootchangeme}"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  wordpress:
+    image: wordpress:php8.2-apache
+    container_name: dsn-wordpress
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WP_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${MYSQL_USER:-wp}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD:-wpchangeme}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-wordpress}
+      DSN_PUBLIC_ORIGIN: ${DSN_PUBLIC_ORIGIN:-http://localhost:8080}
+      DSN_KIBANA_URL: ${DSN_KIBANA_URL:-http://localhost:5601}
+      DSN_SHINY_URL: ${DSN_SHINY_URL:-http://localhost:3838}
+    volumes:
+      - wp-data:/var/www/html
+      - ../wp-content/plugins/dsn-dashboard:/var/www/html/wp-content/plugins/dsn-dashboard
+    networks:
+      - dsn-net
+    healthcheck:
+      test: ["CMD-SHELL", "pidof apache2 >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 40s
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: dsn-elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms512m -Xmx512m}
+    ports:
+      - "${ES_PORT:-9200}:9200"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    networks:
+      - dsn-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9200 >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.0
+    container_name: dsn-kibana
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    ports:
+      - "${KIBANA_PORT:-5601}:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      SERVER_PUBLICBASEURL: ${KIBANA_PUBLIC_URL:-http://localhost:5601}
+    volumes:
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    networks:
+      - dsn-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:5601/api/status >/dev/null || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 30
+      start_period: 90s
+
+  shiny:
+    build:
+      context: ./shiny
+    container_name: dsn-shiny
+    restart: unless-stopped
+    ports:
+      - "${SHINY_PORT:-3838}:3838"
+    volumes:
+      - ../data/generated:/data/seed:ro
+    environment:
+      DSN_FRAME_ANCESTORS: ${DSN_PUBLIC_ORIGIN:-http://localhost:8080}
+    networks:
+      - dsn-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:3838/ >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+networks:
+  dsn-net:
+    name: dsn-net
+    driver: bridge
+
+volumes:
+  wp-data:
+    name: dsn-wp-data
+  mysql-data:
+    name: dsn-mysql-data
+  es-data:
+    name: dsn-es-data

@@ -1,0 +1,36 @@
+{
+  "vals": {
+    "--dsn-color-bg": "#0f172a",
+    "--dsn-color-surface": "#1e293b",
+    "--dsn-color-accent": "#38bdf8",
+    "--dsn-color-text": "#e2e8f0",
+    "--dsn-font-family": "\"Segoe UI\", system-ui, sans-serif",
+    "--dsn-embed-pad": "12px"
+  },
+  "frames": [
+    {
+      "paddingTop": "12px",
+      "paddingRight": "12px",
+      "paddingBottom": "12px",
+      "paddingLeft": "12px"
+    },
+    {
+      "paddingTop": "12px",
+      "paddingRight": "12px",
+      "paddingBottom": "12px",
+      "paddingLeft": "12px"
+    },
+    {
+      "paddingTop": "12px",
+      "paddingRight": "12px",
+      "paddingBottom": "12px",
+      "paddingLeft": "12px"
+    },
+    {
+      "paddingTop": "12px",
+      "paddingRight": "12px",
+      "paddingBottom": "12px",
+      "paddingLeft": "12px"
+    }
+  ]
+}

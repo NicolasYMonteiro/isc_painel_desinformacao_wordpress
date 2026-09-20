@@ -1,0 +1,29 @@
+# Saved objects Kibana (TASK-004)
+
+## Automático (recomendado)
+
+Com ES indexado e Kibana no ar:
+
+```bash
+py -3 scripts/seed/setup_kibana.py
+```
+
+Cria Data View `desinfo_events` + dashboards:
+
+| ID | Conteúdo |
+|----|----------|
+| `dsn-by-theme` | contagem por tema |
+| `dsn-theme-engagement` | soma engagement por tema |
+| `dsn-by-platform` | contagem por plataforma |
+| `dsn-by-platform-year` | contagem por ano |
+
+## Embed URLs
+
+```
+http://localhost:5601/app/dashboards#/view/dsn-by-theme?embed=true&_g=()
+http://localhost:5601/app/dashboards#/view/dsn-theme-engagement?embed=true&_g=()
+http://localhost:5601/app/dashboards#/view/dsn-by-platform?embed=true&_g=()
+http://localhost:5601/app/dashboards#/view/dsn-by-platform-year?embed=true&_g=()
+```
+
+Framing: `docker/kibana/kibana.yml` (`csp.frame_ancestors`, `disableEmbedding: false`).
