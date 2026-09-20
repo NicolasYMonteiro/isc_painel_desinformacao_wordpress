@@ -1,0 +1,34 @@
+id_origem,tipo_origem,titulo,teste_id,metodo,resultado,bug_id,evidencia,severidade_falha
+RF-001,RF,Página Por Tema,TEST-QA-001,Playwright goto /por-tema/,PASS,,docs/06-validation/screenshots/por-tema-slide-1.png,
+RF-002,RF,Página Por Plataforma,TEST-QA-002,Playwright goto /por-plataforma/,PASS,,docs/06-validation/screenshots/por-plataforma-slide-1.png,
+RF-003,RF,Carrossel sem scroll,TEST-QA-003,measureNoScroll 1366/1920,FAIL,BUG-001,docs/06-validation/metrics.jsonl,Alta
+RF-004,RF,4 slides Tema,TEST-QA-004,count .dsn-slide,PASS,,screenshots por-tema-slide-*,
+RF-005,RF,4 slides Plataforma,TEST-QA-005,count .dsn-slide,PASS,,screenshots por-plataforma-slide-*,
+RF-006,RF,Embed Kibana,TEST-QA-006,console + iframe,FAIL,BUG-002,docs/06-validation/console-por-tema.json,Alta
+RF-007,RF,Embed Shiny,TEST-QA-007,data-embed-type shiny + screenshot,PASS,,screenshots *-slide-3/4.png,
+RF-008,RF,Homogeneidade visual,TEST-QA-008,tokens CSS + padding,PASS_PARCIAL,BUG-005,docs/06-validation/homogeneity.json,Media
+RF-009,RF,Seed dimensional,TEST-QA-009,ES _count + validate_catalogs,PASS,,count=50000,
+RF-010,RF,Catálogo 15 temas,TEST-QA-010,validate_catalogs.py,PASS,,,
+RF-011,RF,Catálogo 4 plataformas,TEST-QA-011,validate_catalogs.py,PASS,,,
+RF-012,RF,Análises descritivas,TEST-QA-012,revisao escopo UI,PASS,,,
+RF-013,RF,Navegação 2 páginas,TEST-QA-013,Playwright nav links,PASS,,,
+RF-014,RF,Controles carrossel,TEST-QA-014,prev/next + indicator,PASS,,,
+RF-015,RF,Eixo alinhado,TEST-QA-015,captions por pagina,PASS,,,
+RF-016,RF,Legendas curtas,TEST-QA-016,caption length,PASS,,,
+RF-017,RF,Seed reproduzivel,TEST-QA-017,scripts/seed seed=42,PASS,,,
+RF-018,RF,Badge ficticio,TEST-QA-018,.dsn-badge-fake visible,PASS,,,
+RF-019,RF,Auth embeds producao,TEST-QA-019,Won't,N/A,,,
+RNF-001,RNF,Troca slide <300ms,TEST-QA-101,transitionend timing,PASS,,metrics.jsonl 292-298ms,
+RNF-002,RNF,Sem scroll host,TEST-QA-102,scrollHeight vs clientHeight,FAIL,BUG-001,metrics.jsonl hasScroll=true,Alta
+RNF-003,RNF,First embed <5s,TEST-QA-103,elapsed to iframe visible,PASS,,metrics.jsonl 2791ms,
+RNF-004,RNF,Compatibilidade iframe,TEST-QA-104,console framing + CSP,FAIL,BUG-002,console-por-tema.json,Alta
+RNF-005,RNF,Homogeneidade tokens,TEST-QA-105,CSS variables + padding,PASS,,homogeneity.json,
+RNF-006,RNF,Teclado carrossel,TEST-QA-106,focus+Enter next,PASS,,,
+RNF-007,RNF,title iframes,TEST-QA-107,attribute title,PASS,,,
+RNF-008,RNF,Contraste/a11y AA,TEST-QA-108,axe-core,FAIL,BUG-003,axe-por-tema.json serious=1,Media
+RNF-009,RNF,ES nao exposto,TEST-QA-109,GET localhost:9200,FAIL,BUG-004,es-exposure.json status=200,Alta
+RNF-010,RNF,Seed sem PII,TEST-QA-110,schema+seed review,PASS,,,
+RNF-011,RNF,Framing allowlist,TEST-QA-111,kibana.yml frame_ancestors,PASS,,docker/kibana/kibana.yml,
+RNF-012,RNF,Duas rotas,TEST-QA-112,URLs principais,PASS,,,
+US-020,US,Iframe bloqueado,TEST-QA-020,manual ?dsn_force_error=1,NAO_EXECUTADO,,,
+US-021,US,Dado ausente,TEST-QA-021,manual ?dsn_empty=1,NAO_EXECUTADO,,,
