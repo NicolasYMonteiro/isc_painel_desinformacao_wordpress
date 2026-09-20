@@ -1,21 +1,29 @@
 # Saved objects Kibana (TASK-004)
 
-Após o seed, crie um Data View no Kibana:
+## Automático (recomendado)
 
-1. Stack Management → Data Views → Create: index pattern `desinfo_events`, time field `timestamp`
-2. Dashboard → Create visualization (Lens):
-   - Bar: `theme` terms + count
-   - Bar: `platform` terms + sum `engagement_count`
-3. Salve com IDs sugeridos para embed:
-   - `dsn-by-theme`
-   - `dsn-theme-engagement`
-   - `dsn-by-platform`
-   - `dsn-by-platform-year`
+Com ES indexado e Kibana no ar:
 
-URL de embed (exemplo):
-
-```
-http://localhost:5601/app/dashboards#/view/<id>?embed=true&_g=()
+```bash
+py -3 scripts/seed/setup_kibana.py
 ```
 
-Framing: ver `docker/kibana/kibana.yml` (`csp.frame_ancestors`, `disableEmbedding: false`).
+Cria Data View `desinfo_events` + dashboards:
+
+| ID | Conteúdo |
+|----|----------|
+| `dsn-by-theme` | contagem por tema |
+| `dsn-theme-engagement` | soma engagement por tema |
+| `dsn-by-platform` | contagem por plataforma |
+| `dsn-by-platform-year` | contagem por ano |
+
+## Embed URLs
+
+```
+http://localhost:5601/app/dashboards#/view/dsn-by-theme?embed=true&_g=()
+http://localhost:5601/app/dashboards#/view/dsn-theme-engagement?embed=true&_g=()
+http://localhost:5601/app/dashboards#/view/dsn-by-platform?embed=true&_g=()
+http://localhost:5601/app/dashboards#/view/dsn-by-platform-year?embed=true&_g=()
+```
+
+Framing: `docker/kibana/kibana.yml` (`csp.frame_ancestors`, `disableEmbedding: false`).
