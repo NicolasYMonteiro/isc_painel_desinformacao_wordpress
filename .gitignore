@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+docker/.env
+*.log
+.DS_Store
+.cursor/
+node_modules/
+.idea/
+data/generated/
+*.ndjson
+!data/sample.json

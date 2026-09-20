@@ -1,0 +1,107 @@
+# DSN-DASH — Docker Compose (rascunho)
+# Destino: ADR-002 | MOD-WP-PLUGIN, MOD-ES, MOD-KIBANA, MOD-SHINY
+# Tags major provisórias — pin de patch em etapa posterior.
+# NÃO executar como contrato de produção; smoke test = próxima fase.
+#
+# Framing (ADR-001 / RNF-004 / RNF-011):
+#   Kibana: server.securityResponseHeaders.disableEmbedding=false
+#           csp.frame_ancestors=['http://localhost:8080']
+#   Shiny:  configurar CSP frame-ancestors com a mesma origem WP
+# ES (RNF-009): porta 9200 NÃO publicada no host (só rede Docker).
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: dsn-mysql
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wpchangeme
+      MYSQL_ROOT_PASSWORD: rootchangeme
+    volumes:
+      - dsn_db_data:/var/lib/mysql
+    networks:
+      - dsn_net
+    # ports: []  # interno apenas
+
+  wordpress:
+    image: wordpress:php8.2-apache
+    container_name: dsn-wordpress
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wpchangeme
+      WORDPRESS_DB_NAME: wordpress
+      # Origem usada em frame_ancestors dos filhos
+      DSN_PUBLIC_ORIGIN: "http://localhost:8080"
+      DSN_KIBANA_URL: "http://localhost:5601"
+      DSN_SHINY_URL: "http://localhost:3838"
+    volumes:
+      - dsn_wp_data:/var/www/html
+      # Na implementação: montar plugin dsn-dashboard
+      # - ../../wp-content/plugins/dsn-dashboard:/var/www/html/wp-content/plugins/dsn-dashboard
+    networks:
+      - dsn_net
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: dsn-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - dsn_es_data:/usr/share/elasticsearch/data
+    networks:
+      - dsn_net
+    # RNF-009: não publicar 9200 no host na configuração safe
+    # ports:
+    #   - "127.0.0.1:9200:9200"  # descomentar só para debug local do seed
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.0
+    container_name: dsn-kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      # Embed no WP (ADR-001)
+      SERVER_PUBLICBASEURL: "http://localhost:5601"
+    # Preferir kibana.yml montado na implementação com:
+    #   server.securityResponseHeaders.disableEmbedding: false
+    #   csp.frame_ancestors: ["'self'", "http://localhost:8080"]
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    networks:
+      - dsn_net
+
+  shiny:
+    # Imagem placeholder — substituir por Dockerfile R/Shiny do MOD-SHINY
+    image: rocker/shiny:4
+    container_name: dsn-shiny
+    ports:
+      - "3838:3838"
+    volumes:
+      - dsn_shiny_app:/srv/shiny-server
+      - dsn_shiny_seed:/data/seed:ro
+    # Headers frame-ancestors devem permitir http://localhost:8080
+    # (via proxy reverso ou config do app na implementação)
+    networks:
+      - dsn_net
+
+networks:
+  dsn_net:
+    driver: bridge
+
+volumes:
+  dsn_db_data:
+  dsn_wp_data:
+  dsn_es_data:
+  dsn_shiny_app:
+  dsn_shiny_seed:

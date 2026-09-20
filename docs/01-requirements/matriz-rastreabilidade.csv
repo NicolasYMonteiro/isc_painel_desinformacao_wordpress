@@ -1,0 +1,32 @@
+id,tipo,titulo,prioridade_moscow,origem_briefing,origem_discovery_rnf,destino_spec,destino_us,criterio_aceite_resumo
+RF-001,RF,Página Por Tema,Must,REQ-001,,SPEC-001,US-001,Acesso à página Por Tema distinta da Por Plataforma
+RF-002,RF,Página Por Plataforma,Must,REQ-002,,SPEC-002,US-002,Acesso à página Por Plataforma distinta da Por Tema
+RF-003,RF,Carrossel lateral sem scroll no host,Must,REQ-003,RNF-001,SPEC-003,US-003,Navegação lateral sem scroll vertical no host
+RF-004,RF,Quatro slides na página Por Tema,Must,REQ-001;REQ-003,,SPEC-004,US-004,Exatamente 4 slides com gráfico na página Tema
+RF-005,RF,Quatro slides na página Por Plataforma,Must,REQ-002;REQ-003,,SPEC-005,US-005,Exatamente 4 slides com gráfico na página Plataforma
+RF-006,RF,Embed Elasticsearch/Kibana,Must,REQ-004,RNF-006,SPEC-006,US-006,Pelo menos 1 embed ES/Kibana por página sem erro de framing
+RF-007,RF,Embed R/Shiny,Must,REQ-005,RNF-006,SPEC-007,US-007,Pelo menos 1 embed R/Shiny por página sem erro de framing
+RF-008,RF,Homogeneidade visual entre origens,Must,REQ-006,RNF-004,SPEC-008,US-008,Checklist de homogeneidade atendido entre Kibana e Shiny
+RF-009,RF,Seed fictício dimensional,Must,REQ-007,RNF-009,SPEC-009,US-009,Seed cobre 4 plataformas x 15 temas x 27 UFs x 2021-2024 sem PII real
+RF-010,RF,Catálogo dos 15 temas,Must,REQ-009,,SPEC-010,US-010,Lista exata dos 15 temas do catálogo
+RF-011,RF,Catálogo das 4 plataformas,Must,REQ-010,,SPEC-011,US-011,Lista exata das 4 plataformas do catálogo
+RF-012,RF,Análises apenas descritivas,Must,REQ-008,RNF-021,SPEC-012,US-012,Sem ML nem estatística complexa no produto
+RF-013,RF,Navegação entre as duas páginas,Must,REQ-001;REQ-002,RNF-002,SPEC-013,US-013,Alternância entre Tema e Plataforma via navegação explícita
+RF-014,RF,Controles e indicador do carrossel,Must,REQ-003,RNF-020,SPEC-014,US-014,Avançar/voltar e indicador refletem posição 1..4
+RF-015,RF,Conteúdo alinhado ao eixo da página,Should,REQ-001;REQ-002,,SPEC-015,US-015,Eixo dominante do slide corresponde à página
+RF-016,RF,Legendas curtas por slide,Should,REQ-008,RNF-003,SPEC-016,US-016,Cada um dos 8 slides tem texto curto para público geral
+RF-017,RF,Seed reprodutível,Should,REQ-007,RNF-010,SPEC-017,US-017,Procedimento/artefato versionado recria o seed
+RF-018,RF,Indicação de dados fictícios na UI,Could,briefing-§4,,SPEC-018,US-018,Indicação visível de dados fictícios nas páginas
+RF-019,RF,Autenticação de embeds em produção,Won't,briefing-§10,,SPEC-019,US-019,Fora desta entrega; SPEC futura de auth
+RNF-001,RNF,Tempo de troca de slide,Must,REQ-003,RNF-001,SPEC-101,US-101,Transição host menor que 300ms
+RNF-002,RNF,Ausência de scroll vertical no host,Must,REQ-003,RNF-001,SPEC-102,US-102,Overflow vertical 0 em 1366x768 e 1920x1080
+RNF-003,RNF,Tempo até primeiro embed útil,Must,REQ-004;REQ-005,RNF-016,SPEC-103,US-103,Primeiro iframe útil visível em menos de 5s local
+RNF-004,RNF,Compatibilidade de iframe,Must,REQ-012,RNF-007,SPEC-104,US-104,0 erros de framing no console para ES e R
+RNF-005,RNF,Homogeneidade visual mensurável,Must,REQ-006,RNF-004,SPEC-105,US-105,Paleta >=4 tokens tipografia e padding +/-8px
+RNF-006,RNF,Carrossel operável por teclado,Must,REQ-003,RNF-020,SPEC-106,US-106,100% controles operáveis por teclado com foco visível
+RNF-007,RNF,title em 100% dos iframes,Must,REQ-004;REQ-005,RNF-018,SPEC-107,US-107,Todo iframe com title não vazio
+RNF-008,RNF,Contraste WCAG 2.1 AA no shell,Should,REQ-008,RNF-019,SPEC-108,US-108,Contraste texto corpo >=4.5:1
+RNF-009,RNF,Elasticsearch inacessível ao browser,Must,REQ-004,RNF-013,SPEC-109,US-109,0 endpoints ES acessíveis pelo browser do usuário
+RNF-010,RNF,Seed sem PII real,Must,REQ-007,RNF-009,SPEC-110,US-110,0 registros com PII real no seed
+RNF-011,RNF,Framing com allowlist,Must,REQ-012,RNF-014,SPEC-111,US-111,frame-ancestors com origens explícitas; sem * em produção
+RNF-012,RNF,Exatamente duas rotas principais,Must,REQ-001;REQ-002,RNF-002,SPEC-112,US-112,Contagem de rotas principais do painel = 2

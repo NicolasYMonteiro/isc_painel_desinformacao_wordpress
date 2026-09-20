@@ -1,0 +1,10 @@
+# Rascunho Kibana — montar via docker-compose (ADR-001)
+# Ajustar origem WP conforme DSN_PUBLIC_ORIGIN
+
+server.host: "0.0.0.0"
+server.publicBaseUrl: "http://localhost:5601"
+
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+server.securityResponseHeaders.disableEmbedding: false
+csp.frame_ancestors: ["'self'", "http://localhost:8080"]
