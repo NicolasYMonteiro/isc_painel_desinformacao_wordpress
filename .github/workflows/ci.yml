@@ -1,0 +1,26 @@
+name: CI DSN-DASH
+on:
+  push:
+    branches: [main, "feature/**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Lint Python (compile)
+        run: python -m compileall scripts/seed
+      - name: Type-ish / unit tests
+        run: pytest -q
+      - name: Docker compose config
+        run: docker compose -f docker/docker-compose.yml config
+      - name: PHP lint plugin
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq php-cli
+          find wp-content/plugins/dsn-dashboard -name '*.php' -print0 | xargs -0 -n1 php -l
