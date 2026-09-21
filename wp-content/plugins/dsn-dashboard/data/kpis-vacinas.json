@@ -1,0 +1,45 @@
+{
+  "slice": {
+    "dimension": "theme",
+    "value": "vacinas"
+  },
+  "period": {
+    "base": 2024,
+    "compare": 2023
+  },
+  "generated_from": "desinfo_events",
+  "kpis": [
+    {
+      "id": "kpi-events",
+      "label": "Eventos vacinas 2024",
+      "value": 656,
+      "format": "int",
+      "delta_pct": -3.5,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-engagement",
+      "label": "Engajamento soma 2024",
+      "value": 312686,
+      "format": "int",
+      "delta_pct": -1.7,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-share",
+      "label": "Share no total 2024",
+      "value": 6.7,
+      "format": "pct",
+      "delta_pct": 6.3,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-leader",
+      "label": "Eventos WhatsApp 2024",
+      "value": 183,
+      "format": "int",
+      "delta_pct": 12.3,
+      "period_label": "vs 2023"
+    }
+  ]
+}

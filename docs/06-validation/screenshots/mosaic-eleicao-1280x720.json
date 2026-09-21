@@ -1,0 +1,17 @@
+{
+  "viewport": {
+    "name": "1280x720",
+    "width": 1280,
+    "height": 720
+  },
+  "shellMs": 5548,
+  "scroll": {
+    "pageScroll": true,
+    "dashOverflow": "hidden",
+    "slideOverflow": "hidden"
+  },
+  "kpis": 4,
+  "embeds": 3,
+  "pattern": "A",
+  "slice": "eleicao"
+}

@@ -6,5 +6,7 @@ elasticsearch.hosts: ["http://elasticsearch:9200"]
 server.securityResponseHeaders.disableEmbedding: false
 csp.frame_ancestors: ["'self'", "http://localhost:8080"]
 
-# Dev: sem telemetria
+# Demo: sem telemetria / newsfeed / aviso de cluster inseguro no iframe
 telemetry.enabled: false
+newsfeed.enabled: false
+security.showInsecureClusterWarning: false

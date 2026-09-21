@@ -1,0 +1,315 @@
+{
+  "generated_at": "2026-09-21T12:38:08.829Z",
+  "viewport": "1280x720",
+  "slides_total": 8,
+  "slides_approved": 8,
+  "conformity_pct": 100,
+  "critical_bugs": 0,
+  "bugs": [],
+  "slides": [
+    {
+      "id": "T1",
+      "pattern": "C",
+      "slice": "global=all",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "4/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=C (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host global/all; embeds=dsn-mosaic-t1; expect=dsn-mosaic-t1"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — plataformas x temas (mosaico)\",\"wh\":\"531x443\",\"canvas\":0,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-t1\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/t1-padrao-c-global-1280x720.png"
+    },
+    {
+      "id": "T2",
+      "pattern": "A",
+      "slice": "theme=eleicao",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "4/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=A (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host theme/eleicao; embeds=dsn-mosaic-eleicao; expect=dsn-mosaic-eleicao"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — eleicao mosaico\",\"wh\":\"531x443\",\"canvas\":6,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-eleicao\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/t2-padrao-a-eleicao-1280x720.png"
+    },
+    {
+      "id": "T3",
+      "pattern": "A",
+      "slice": "theme=vacinas",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "4/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=A (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host theme/vacinas; embeds=dsn-mosaic-vacinas; expect=dsn-mosaic-vacinas"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — vacinas mosaico\",\"wh\":\"531x443\",\"canvas\":6,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-vacinas\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/t3-padrao-a-vacinas-1280x720.png"
+    },
+    {
+      "id": "T4",
+      "pattern": "D",
+      "slice": "geo=uf_region",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "4/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=D (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host geo/uf_region; embeds=dsn-mosaic-t4; expect=dsn-mosaic-t4"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — distribuicao geografica (mosaico)\",\"wh\":\"531x443\",\"canvas\":6,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-t4\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/t4-padrao-d-geo-1280x720.png"
+    },
+    {
+      "id": "P1",
+      "pattern": "C",
+      "slice": "global=platform_angle",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "4/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=C (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host global/platform_angle; embeds=dsn-mosaic-p1; expect=dsn-mosaic-p1"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — volume por plataforma (mosaico)\",\"wh\":\"531x443\",\"canvas\":6,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-p1\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/p1-padrao-c-plataformas-1280x720.png"
+    },
+    {
+      "id": "P2",
+      "pattern": "B",
+      "slice": "platform=WhatsApp",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "3/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=B (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host platform/WhatsApp; embeds=dsn-mosaic-whatsapp; expect=dsn-mosaic-whatsapp"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — WhatsApp mosaico\",\"wh\":\"531x443\",\"canvas\":6,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-whatsapp\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/p2-padrao-b-whatsapp-1280x720.png"
+    },
+    {
+      "id": "P3",
+      "pattern": "B",
+      "slice": "platform=YouTube",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "3/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=B (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host platform/YouTube; embeds=dsn-mosaic-youtube; expect=dsn-mosaic-youtube"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — YouTube mosaico\",\"wh\":\"531x443\",\"canvas\":6,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-youtube\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/p3-padrao-b-youtube-1280x720.png"
+    },
+    {
+      "id": "P4",
+      "pattern": "B",
+      "slice": "platform=Facebook",
+      "passed": true,
+      "checks": {
+        "kpis_ge3_delta": {
+          "pass": true,
+          "detail": "3/4 KPIs com Δ%+seta"
+        },
+        "bars_stratified": {
+          "pass": true,
+          "detail": "slot charts=true; pattern=B (barras no dashboard multi-painel)"
+        },
+        "time_series_4y": {
+          "pass": true,
+          "detail": "1 iframe multi-painel; janela 2021–2024=true"
+        },
+        "same_dimension": {
+          "pass": true,
+          "detail": "host platform/Facebook; embeds=dsn-mosaic-facebook; expect=dsn-mosaic-facebook"
+        },
+        "no_scroll_100vh": {
+          "pass": true,
+          "detail": "hasScroll=false sh=720 vh=720"
+        },
+        "palette_typography": {
+          "pass": true,
+          "detail": "bg=#0f172a; accent=#38bdf8; font=\"Segoe UI\", system-ui, sans-serif"
+        },
+        "embeds_ok": {
+          "pass": true,
+          "detail": "{\"frames\":[{\"t\":\"Kibana — Facebook mosaico\",\"wh\":\"531x443\",\"canvas\":6,\"err\":false,\"broken\":false}],\"probe\":[{\"id\":\"dsn-mosaic-facebook\",\"status\":200,\"ok\":true}]}"
+        }
+      },
+      "bugs": [],
+      "screenshot": "screenshots-v2/p4-padrao-b-facebook-1280x720.png"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 # DSN-DASH — Docker Compose (TASK-001)
-# Rede: dsn-net | WP:8080 Kibana:5601 ES:9200 Shiny:3838
+# Rede: dsn-net | WP:8080 Kibana:5601 Shiny:3838
+# ES:9200 NÃO publicado no host (BUG-004 / RNF-009) — acesso via rede Docker / docker exec
 
 name: dsn-dash
 
@@ -62,8 +63,7 @@ services:
       - xpack.security.enabled=false
       - xpack.security.http.ssl.enabled=false
       - ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms512m -Xmx512m}
-    ports:
-      - "${ES_PORT:-9200}:9200"
+    # Sem ports: — RNF-009 / BUG-004 (não expor ES ao browser/host)
     volumes:
       - es-data:/usr/share/elasticsearch/data
     networks:

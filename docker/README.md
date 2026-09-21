@@ -15,7 +15,7 @@ Aguarde os healthchecks (`docker compose ps`).
 | Serviço | URL |
 |---------|-----|
 | WordPress | http://localhost:8080 |
-| Elasticsearch | http://localhost:9200 |
+| Elasticsearch | *interno* (`elasticsearch:9200` na rede `dsn-net`; sem publish no host — BUG-004) |
 | Kibana | http://localhost:5601 |
 | Shiny (app DSN) | http://localhost:3838/dsn/ |
 
@@ -41,14 +41,15 @@ Volume monta `wp-content/plugins/dsn-dashboard`. Ative o plugin no admin WP apó
 # na raiz do repo
 python -m pip install -r requirements.txt
 python scripts/seed/generate_data.py
-python scripts/seed/index_to_es.py --es http://localhost:9200 --recreate
+python scripts/seed/index_to_es.py --recreate
+# (ES sem porta no host: index_to_es usa docker exec automaticamente)
 ```
 
 ## Smoke
 
 ```bash
 docker compose -f docker/docker-compose.yml config
-curl -fsS http://localhost:9200
+docker exec dsn-elasticsearch curl -fsS http://127.0.0.1:9200
 curl -fsS http://localhost:5601/api/status
 curl -fsS http://localhost:8080
 curl -fsS http://localhost:3838/dsn/

@@ -5,12 +5,14 @@ Dashboard de análise **descritiva** de propagação de desinformação
 
 ## Subir a demo (5 passos)
 
-1. Clone e entre na tag: `git clone … && git checkout v0.1.0`
+1. Clone e entre na tag: `git clone … && git checkout v0.2.0`
 2. Configure o ambiente: `cd docker && cp .env.example .env`
 3. Suba os serviços: `docker compose up -d --build`
 4. Bootstrap (seed + Kibana + plugin WP): `cd .. && py -3 scripts/demo_bootstrap.py`  
    (ou `python scripts/demo_bootstrap.py`)
 5. Abra as páginas: [Por Tema](http://localhost:8080/por-tema/) · [Por Plataforma](http://localhost:8080/por-plataforma/)
+
+> Elasticsearch **não** publica a porta `9200` no host (RNF-009). O bootstrap acessa o ES via rede Docker / `docker exec`.
 
 ## URLs e credenciais (dev)
 
@@ -30,7 +32,8 @@ Dashboard de análise **descritiva** de propagação de desinformação
 | Manual de demo | [`docs/07-delivery/manual-demo.md`](docs/07-delivery/manual-demo.md) |
 | Release notes | [`docs/07-delivery/release-notes.md`](docs/07-delivery/release-notes.md) |
 | Changelog | [`CHANGELOG.md`](CHANGELOG.md) |
+| Validação mosaico | [`docs/06-validation/relatorio-mosaico.md`](docs/06-validation/relatorio-mosaico.md) |
 
-## Known issues (v0.1.0)
+## Release atual
 
-Ver [relatório QA](docs/06-validation/relatorio-qa.md): BUG-001 (scroll), BUG-002 (embeds Kibana), BUG-004 (ES na porta 9200).
+**v0.2.0** — mosaico v2 + correções BUG-001…005. Ver [release notes](docs/07-delivery/release-notes.md).

@@ -1,18 +1,71 @@
-/* DSN-DASH shell — ADR-004 tokens / TASK-013 */
+/* DSN-DASH shell — ADR-004 tokens / TASK-013 + mosaico Padrão A */
 :root {
   --dsn-color-bg: #0f172a;
   --dsn-color-surface: #1e293b;
   --dsn-color-accent: #38bdf8;
   --dsn-color-text: #e2e8f0;
+  --dsn-color-kpi-up: #4ade80;
+  --dsn-color-kpi-down: #f87171;
   --dsn-font-family: "Segoe UI", system-ui, sans-serif;
-  --dsn-embed-pad: 12px;
+  --dsn-embed-pad: 8px;
   --dsn-embed-height: 70vh;
+  --dsn-mosaic-gap: 8px;
 }
 
-body.dsn-no-scroll,
-body.dsn-no-scroll html {
+/* BUG-001: página-host sem scroll — chrome do tema WP oculto, shell fullscreen */
+html.dsn-html-lock,
+body.dsn-no-scroll {
+  overflow: hidden !important;
+  height: 100% !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overscroll-behavior: none;
+}
+
+body.dsn-no-scroll {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+}
+
+body.dsn-no-scroll .wp-site-blocks > header,
+body.dsn-no-scroll .wp-site-blocks > footer,
+body.dsn-no-scroll header.wp-block-template-part,
+body.dsn-no-scroll footer.wp-block-template-part,
+body.dsn-no-scroll .wp-block-template-part[data-area="header"],
+body.dsn-no-scroll .wp-block-template-part[data-area="footer"],
+body.dsn-no-scroll .entry-header,
+body.dsn-no-scroll .wp-block-post-title,
+body.dsn-no-scroll .wp-block-post-featured-image,
+body.dsn-no-scroll #wpadminbar {
+  display: none !important;
+}
+
+body.dsn-no-scroll .wp-site-blocks,
+body.dsn-no-scroll .entry-content,
+body.dsn-no-scroll .wp-block-post-content,
+body.dsn-no-scroll main,
+body.dsn-no-scroll .wp-block-group {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+}
+
+body.dsn-no-scroll .dsn-dashboard {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  box-sizing: border-box;
   overflow: hidden;
-  height: 100%;
+  padding: 8px 12px 12px;
+  background: var(--dsn-color-bg);
+  color: var(--dsn-color-text);
+  font-family: var(--dsn-font-family);
 }
 
 .dsn-dashboard {
@@ -20,7 +73,7 @@ body.dsn-no-scroll html {
   min-height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  padding: 12px 16px 24px;
+  padding: 8px 12px 16px;
   background: var(--dsn-color-bg);
   color: var(--dsn-color-text);
   font-family: var(--dsn-font-family);
@@ -31,7 +84,8 @@ body.dsn-no-scroll html {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  min-height: 40px;
 }
 
 .dsn-nav {
@@ -64,8 +118,9 @@ body.dsn-no-scroll html {
 }
 
 .dsn-swiper {
-  height: calc(100vh - 72px);
+  height: calc(100dvh - 52px);
   width: 100%;
+  min-height: 0;
 }
 
 .dsn-slide {
@@ -74,6 +129,12 @@ body.dsn-no-scroll html {
   height: 100%;
   padding: 0 40px;
   box-sizing: border-box;
+  position: relative;
+}
+
+.dsn-slide--mosaic {
+  padding: 0 36px 28px;
+  overflow: hidden;
 }
 
 .dsn-slide-caption {
@@ -89,16 +150,26 @@ body.dsn-no-scroll html {
   opacity: 0.85;
 }
 
-.dsn-embed-frame {
+.dsn-slide-indicator--mosaic {
+  position: absolute;
+  right: 48px;
+  top: 8px;
+  margin: 0;
+  z-index: 2;
+}
+
+.dsn-embed-frame,
+.embed-wrapper {
   position: relative;
   flex: 1;
-  min-height: 240px;
-  height: var(--dsn-embed-height);
+  min-height: 0;
+  height: 100%;
   padding: var(--dsn-embed-pad);
   background: var(--dsn-color-surface);
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid #334155;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .dsn-embed-iframe {
@@ -137,4 +208,137 @@ body.dsn-no-scroll html {
 
 .dsn-swiper .swiper-pagination-bullet-active {
   background: var(--dsn-color-accent);
+}
+
+/* —— Mosaico (CSS Grid 12) — RNF-003: 1 área de charts (dashboard multi-painel) —— */
+.dsn-mosaic {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: var(--dsn-mosaic-gap);
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dsn-mosaic--pattern-a,
+.dsn-mosaic--pattern-b,
+.dsn-mosaic--pattern-c,
+.dsn-mosaic--pattern-d {
+  grid-template-areas:
+    "title title title title title title title title title title title title"
+    "kpis kpis kpis kpis kpis kpis kpis kpis kpis kpis kpis kpis"
+    "charts charts charts charts charts charts charts charts charts charts charts charts";
+}
+
+.mosaic-cell {
+  min-height: 0;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.mosaic-cell--title {
+  grid-area: title;
+}
+
+.mosaic-cell--kpis {
+  grid-area: kpis;
+}
+
+.mosaic-cell--charts {
+  grid-area: charts;
+}
+
+.dsn-mosaic__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--dsn-color-text);
+}
+
+.dsn-mosaic__question {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  opacity: 0.9;
+  color: var(--dsn-color-text);
+}
+
+.dsn-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--dsn-mosaic-gap);
+}
+
+.dsn-kpi {
+  background: var(--dsn-color-surface);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 72px;
+}
+
+.dsn-kpi__label {
+  margin: 0;
+  font-size: 0.72rem;
+  opacity: 0.85;
+  line-height: 1.2;
+}
+
+.dsn-kpi__value {
+  margin: 4px 0 2px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--dsn-color-text);
+}
+
+.dsn-kpi__delta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.dsn-kpi__delta--up {
+  color: var(--dsn-color-kpi-up);
+}
+
+.dsn-kpi__delta--down {
+  color: var(--dsn-color-kpi-down);
+}
+
+.dsn-kpi__period {
+  margin: 2px 0 0;
+  font-size: 0.68rem;
+  opacity: 0.75;
+}
+
+@media (max-width: 900px) {
+  .dsn-slide--mosaic {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dsn-mosaic--pattern-a,
+  .dsn-mosaic--pattern-b,
+  .dsn-mosaic--pattern-c,
+  .dsn-mosaic--pattern-d {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    height: auto;
+    grid-template-areas:
+      "title"
+      "kpis"
+      "charts";
+  }
+
+  .dsn-kpi-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mosaic-cell--charts {
+    min-height: 420px;
+  }
 }

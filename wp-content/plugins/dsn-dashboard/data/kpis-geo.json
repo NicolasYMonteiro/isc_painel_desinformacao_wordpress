@@ -1,0 +1,45 @@
+{
+  "slice": {
+    "dimension": "geo",
+    "value": "uf_region"
+  },
+  "period": {
+    "base": 2024,
+    "compare": 2023
+  },
+  "generated_from": "desinfo_events",
+  "kpis": [
+    {
+      "id": "kpi-events",
+      "label": "Eventos 2024",
+      "value": 9853,
+      "format": "int",
+      "delta_pct": -8.9,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-ufs",
+      "label": "UFs com volume",
+      "value": 27,
+      "format": "int",
+      "delta_pct": 0.0,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-leader-delta",
+      "label": "Eventos MG 2024",
+      "value": 403,
+      "format": "int",
+      "delta_pct": 2.0,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-top5",
+      "label": "Concentracao top-5 UF",
+      "value": 19.6,
+      "format": "pct",
+      "delta_pct": -1.0,
+      "period_label": "vs 2023"
+    }
+  ]
+}

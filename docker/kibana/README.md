@@ -19,11 +19,14 @@ Cria Data View `desinfo_events` + dashboards:
 
 ## Embed URLs
 
+Incluem janela temporal do seed (2021–2025) e `embed=true`:
+
 ```
-http://localhost:5601/app/dashboards#/view/dsn-by-theme?embed=true&_g=()
-http://localhost:5601/app/dashboards#/view/dsn-theme-engagement?embed=true&_g=()
-http://localhost:5601/app/dashboards#/view/dsn-by-platform?embed=true&_g=()
-http://localhost:5601/app/dashboards#/view/dsn-by-platform-year?embed=true&_g=()
+http://localhost:5601/app/dashboards#/view/dsn-by-theme?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2021-01-01T00:00:00.000Z',to:'2025-01-01T00:00:00.000Z'))&hide-filter-bar=true
 ```
+
+(os demais IDs seguem o mesmo padrão)
+
+Visualizações: **Vega-Lite** (não aggs legadas) — evita TypeError/`mode` no Kibana 8.15.
 
 Framing: `docker/kibana/kibana.yml` (`csp.frame_ancestors`, `disableEmbedding: false`).

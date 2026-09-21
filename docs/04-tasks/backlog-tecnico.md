@@ -20,14 +20,17 @@
 | 1 — Dados | 002, 003, 018 | Índice + seed + catálogos |
 | 2 — Visualizações backend | 004, 005 | Kibana + Shiny (framing) |
 | 3 — Shell WP | 006, 007, 008, 015 | Plugin, páginas, carrossel, badge |
-| 4 — Conteúdo slides | 009, 010, 014 | 4+4 slides, legendas, descritivo |
+| 3b — Mosaico (design→código) | 008b, 009b, 010b | Grid mosaico + conteúdo Tema/Plataforma v2 |
+| 4 — Conteúdo slides | 009, 010, 014 | 4+4 slides (v1), legendas, descritivo |
 | 5 — Embeds + UX | 011, 012, 013, 016, 017 | iframes, homogeneidade, estados |
 | 6 — Fechamento | 020 | Smoke E2E |
 | — Adiada | 019 | Auth produção (Won't) |
 
 ---
 
-## Catálogo TASK-001..020
+## Catálogo TASK-001..020 (+ 008b..010b mosaico)
+
+> **Refinamento mosaico:** TASK-008b / 009b / 010b dependem da aprovação de [mosaico-padroes.md](../03-architecture/mosaico-padroes.md) e [design-carrossel-v2.md](../03-architecture/design-carrossel-v2.md). Testes: TEST-021b, TEST-022b, TEST-023b.
 
 ### TASK-001 — Promover Compose + rede safe (ES interno)
 
@@ -125,6 +128,18 @@
   - Teste: RNF-001 (&lt;300 ms), RNF-002, RNF-006
   - Doc: referência a [design-carrossel.md](../03-architecture/design-carrossel.md)
 
+### TASK-008b — Shell mosaico CSS Grid no slide
+
+- **US:** US-003, US-014
+- **MOD:** MOD-CAROUSEL, MOD-WP-PLUGIN
+- **Depends-on:** TASK-008; docs [mosaico-padroes.md](../03-architecture/mosaico-padroes.md) + [design-carrossel-v2.md](../03-architecture/design-carrossel-v2.md) aprovados
+- **Risco:** Médio (viewport / BUG-001)
+- **Destino:** PR-008b, TEST-021b
+- **DoD:**
+  - Código: slots `.dsn-mosaic` (grid 12 col); KPIs + áreas de gráfico; Swiper intacto; desktop sem scroll de página; mobile scroll-in-slide
+  - Teste: layout ≥1280px cabe em 100vh−header; RNF-001 preservado
+  - Doc: classes/tokens mosaico alinhados aos padrões A–D
+
 ### TASK-009 — Conteúdo 4 slides página Tema
 
 - **US:** US-004, US-015
@@ -137,6 +152,19 @@
   - Teste: exatamente 4 slides com slot de gráfico
   - Doc: mapa slide → tipo embed
 
+### TASK-009b — Mosaico 4 slides página Tema (C/A/A/D)
+
+- **US:** US-004, US-015
+- **MOD:** MOD-CAROUSEL, MOD-WP-PLUGIN, MOD-KIBANA, MOD-SHINY
+- **Depends-on:** TASK-008b, TASK-009
+- **Risco:** Alto (densidade embeds / RNF-003)
+- **Destino:** PR-009b, TEST-022b
+- **Status:** **Done** (2026-09-20)
+- **DoD:**
+  - Código: T1=C global; T2=A `eleicao`; T3=A `vacinas`; T4=D geo — cada um ≥3 KPIs + ≥1 barra + ≥1 linha; pergunta analítica no caption/título
+  - Teste: checklist mosaico por slide Tema; coerência de fatia — `tests/e2e/mosaic-tema-009b.spec.js`
+  - Doc: mapa slide → padrão → fatia (design-carrossel-v2)
+
 ### TASK-010 — Conteúdo 4 slides página Plataforma
 
 - **US:** US-005, US-015
@@ -148,6 +176,19 @@
   - Código: 4 slides em `page=plataforma`; eixo plataforma dominante
   - Teste: exatamente 4 slides com slot de gráfico
   - Doc: mapa slide → tipo embed
+
+### TASK-010b — Mosaico 4 slides página Plataforma (C/B/B/B)
+
+- **US:** US-005, US-015
+- **MOD:** MOD-CAROUSEL, MOD-WP-PLUGIN, MOD-KIBANA, MOD-SHINY
+- **Depends-on:** TASK-008b, TASK-010
+- **Risco:** Alto (densidade embeds / RNF-003)
+- **Destino:** PR-010b, TEST-023b
+- **Status:** **Done** (2026-09-20)
+- **DoD:**
+  - Código: P1=C global; P2=B whatsapp; P3=B youtube; P4=B facebook — ≥3 KPIs + ≥1 barra + ≥1 linha; fatia coerente
+  - Teste: checklist mosaico por slide Plataforma — `tests/e2e/mosaic-plataforma-010b.spec.js`
+  - Doc: mapa slide → padrão → fatia (design-carrossel-v2)
 
 ### TASK-011 — Wire iframes Kibana nos slides
 
@@ -277,9 +318,9 @@
 |----|------|
 | US-001 | TASK-006, TASK-007 |
 | US-002 | TASK-006, TASK-007 |
-| US-003 | TASK-008, TASK-020 |
-| US-004 | TASK-009 |
-| US-005 | TASK-010 |
+| US-003 | TASK-008, TASK-008b, TASK-020 |
+| US-004 | TASK-009, TASK-009b |
+| US-005 | TASK-010, TASK-010b |
 | US-006 | TASK-004, TASK-011, TASK-020 |
 | US-007 | TASK-005, TASK-012, TASK-020 |
 | US-008 | TASK-013 |
@@ -288,8 +329,8 @@
 | US-011 | TASK-002, TASK-018 |
 | US-012 | TASK-014 |
 | US-013 | TASK-007 |
-| US-014 | TASK-008 |
-| US-015 | TASK-009, TASK-010 |
+| US-014 | TASK-008, TASK-008b |
+| US-015 | TASK-009, TASK-009b, TASK-010, TASK-010b |
 | US-016 | TASK-014 |
 | US-017 | TASK-003 |
 | US-018 | TASK-015 |

@@ -21,6 +21,7 @@ final class DSN_Dashboard
         DSN_Pages::register();
         add_action('wp_enqueue_scripts', [$this, 'assets']);
         add_filter('body_class', [$this, 'body_class']);
+        add_filter('language_attributes', [$this, 'html_class']);
     }
 
     public function assets(): void
@@ -70,6 +71,28 @@ final class DSN_Dashboard
             $classes[] = 'dsn-no-scroll';
         }
         return $classes;
+    }
+
+    /** BUG-001: trava overflow também no <html>. */
+    public function html_class(string $output): string
+    {
+        if (!$this->is_dashboard_page()) {
+            return $output;
+        }
+        if (str_contains($output, 'dsn-html-lock')) {
+            return $output;
+        }
+        if (preg_match('/\bclass=("|\')([^"\']*)\1/', $output, $m)) {
+            $quote = $m[1];
+            $classes = trim($m[2] . ' dsn-html-lock');
+            return preg_replace(
+                '/\bclass=("|\')([^"\']*)\1/',
+                'class=' . $quote . $classes . $quote,
+                $output,
+                1
+            ) ?? $output;
+        }
+        return trim($output . ' class="dsn-html-lock"');
     }
 
     private function is_dashboard_page(): bool
