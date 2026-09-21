@@ -22,8 +22,8 @@ Apontar o badge no canto superior.
 1. Abrir http://localhost:8080/por-tema/
 2. Explicar o carrossel: **4 slides**, navegação lateral (setas / teclado), indicador “n / 4”
 3. Percorrer os slides:
-   - Slides com origem **Kibana** (podem aparecer vazios/erro — known issue BUG-002; mencionar brevemente)
-   - Slides **Shiny**: gráfico de engajamento descritivo — enfatizar o valor visual estável
+   - Slides **Kibana**: barras por tema/engajamento (dados do Elasticsearch)
+   - Slides **Shiny**: gráfico complementar — reforçar homogeneidade visual
 4. Destacar legendas curtas em linguagem acessível
 
 ### 3. Página Por Plataforma (3–4 min)
@@ -34,7 +34,7 @@ Apontar o badge no canto superior.
 
 ### 4. Fechamento (1–2 min)
 
-> “Próximos passos do produto: dados reais, embeds Kibana estáveis, endurecimento de segurança (ES não público) e mais fontes.”
+> “Próximos passos do produto: dados reais, endurecimento de segurança (ES não público), scroll do host e mais fontes.”
 
 Não prometer prazos. Encaminhar dúvidas ao time técnico.
 
@@ -42,7 +42,7 @@ Não prometer prazos. Encaminhar dúvidas ao time técnico.
 
 | Situação | Como falar |
 |----------|------------|
-| Kibana em branco / erro no iframe | “Limitação conhecida da v0.1.0; Shiny ilustra o padrão visual do painel.” |
+| Banner “Your data is not secure” no Kibana | “Aviso padrão do stack sem security na demo local; pode dispensar.” |
 | Barra de scroll do tema WP | “Resíduo do tema WordPress; o carrossel do produto é o eixo de navegação.” |
 | Pedido de dados reais | “Fora do escopo desta demo; seed sintético deliberado.” |
 

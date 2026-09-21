@@ -1,0 +1,45 @@
+{
+  "slice": {
+    "dimension": "platform",
+    "value": "WhatsApp"
+  },
+  "period": {
+    "base": 2024,
+    "compare": 2023
+  },
+  "generated_from": "desinfo_events",
+  "kpis": [
+    {
+      "id": "kpi-events",
+      "label": "Eventos WhatsApp 2024",
+      "value": 2486,
+      "format": "int",
+      "delta_pct": -9.4,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-engagement",
+      "label": "Engajamento soma 2024",
+      "value": 1065052,
+      "format": "int",
+      "delta_pct": -11.5,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-share",
+      "label": "Share no total 2024",
+      "value": 25.2,
+      "format": "pct",
+      "delta_pct": -0.8,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-theme",
+      "label": "Eventos religiao 2024",
+      "value": 191,
+      "format": "int",
+      "delta_pct": null,
+      "period_label": "vs 2023"
+    }
+  ]
+}

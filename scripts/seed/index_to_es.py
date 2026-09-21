@@ -1,5 +1,6 @@
 """
 MOD-SEED / MOD-ES — cria índice desinfo_events e faz bulk (TASK-002 / TASK-003).
+Acesso ES: localhost se publicado; senão docker exec (BUG-004).
 """
 from __future__ import annotations
 
@@ -7,9 +8,10 @@ import argparse
 import json
 import sys
 import time
-import urllib.error
-import urllib.request
 from pathlib import Path
+
+from es_http import request as es_request
+from es_http import wait_ready
 
 MAPPING = {
     "settings": {"number_of_shards": 1, "number_of_replicas": 0},
@@ -35,42 +37,14 @@ MAPPING = {
 INDEX = "desinfo_events"
 
 
-def _req(method: str, url: str, body: bytes | None = None, content_type: str = "application/json"):
-    headers = {"Content-Type": content_type} if body is not None else {}
-    request = urllib.request.Request(url, data=body, headers=headers, method=method)
-    with urllib.request.urlopen(request, timeout=120) as resp:
-        return resp.status, resp.read()
-
-
-def wait_es(base: str, attempts: int = 60) -> None:
-    for i in range(attempts):
-        try:
-            status, _ = _req("GET", f"{base}/_cluster/health")
-            if status == 200:
-                return
-        except (urllib.error.URLError, TimeoutError, ConnectionError):
-            pass
-        time.sleep(2)
-    raise RuntimeError(f"Elasticsearch não respondeu em {base}")
-
-
 def create_index(base: str, recreate: bool = False) -> None:
-    url = f"{base}/{INDEX}"
     if recreate:
         try:
-            _req("DELETE", url)
-        except urllib.error.HTTPError as e:
-            if e.code != 404:
-                raise
-    body = json.dumps(MAPPING).encode("utf-8")
-    try:
-        status, raw = _req("PUT", url, body)
-        print("create_index", status, raw[:200])
-    except urllib.error.HTTPError as e:
-        if e.code == 400 and b"resource_already_exists" in e.read():
-            print("index already exists")
-        else:
-            raise
+            es_request("DELETE", f"/{INDEX}", base=base)
+        except Exception:
+            pass
+    status, raw = es_request("PUT", f"/{INDEX}", MAPPING, base=base)
+    print("create_index", status, raw[:200])
 
 
 def bulk_index(base: str, ndjson_path: Path, batch_size: int = 2000) -> int:
@@ -82,7 +56,13 @@ def bulk_index(base: str, ndjson_path: Path, batch_size: int = 2000) -> int:
         if not batch:
             return
         payload = "".join(batch).encode("utf-8")
-        _req("POST", f"{base}/_bulk", payload, content_type="application/x-ndjson")
+        es_request(
+            "POST",
+            "/_bulk",
+            payload,
+            base=base,
+            content_type="application/x-ndjson",
+        )
         total += len(batch) // 2
         batch = []
 
@@ -98,13 +78,12 @@ def bulk_index(base: str, ndjson_path: Path, batch_size: int = 2000) -> int:
             if len(batch) >= batch_size * 2:
                 flush()
         flush()
-    # refresh
-    _req("POST", f"{base}/{INDEX}/_refresh")
+    es_request("POST", f"/{INDEX}/_refresh", base=base)
     return total
 
 
 def count_docs(base: str) -> int:
-    status, raw = _req("GET", f"{base}/{INDEX}/_count")
+    _, raw = es_request("GET", f"/{INDEX}/_count", base=base)
     data = json.loads(raw)
     return int(data.get("count", 0))
 
@@ -119,8 +98,7 @@ def validate_aggs(base: str) -> None:
             "by_theme": {"terms": {"field": "theme", "size": 20}},
         },
     }
-    body = json.dumps(query).encode("utf-8")
-    _, raw = _req("POST", f"{base}/{INDEX}/_search", body)
+    _, raw = es_request("POST", f"/{INDEX}/_search", query, base=base)
     data = json.loads(raw)
     for key in ("by_platform", "by_year", "by_uf", "by_theme"):
         buckets = data["aggregations"][key]["buckets"]
@@ -130,22 +108,33 @@ def validate_aggs(base: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--es", default="http://localhost:9200")
+    parser.add_argument("--es", default=None, help="Base URL (opcional; fallback docker exec)")
     parser.add_argument("--ndjson", type=Path, default=Path("data/generated/desinfo_events.ndjson"))
     parser.add_argument("--recreate", action="store_true")
     parser.add_argument("--skip-bulk", action="store_true")
     args = parser.parse_args()
 
-    wait_es(args.es)
-    create_index(args.es, recreate=args.recreate)
+    base = wait_ready(args.es)
+    # recreate may hit "already exists" — retry once
+    try:
+        create_index(base, recreate=args.recreate)
+    except Exception as e:
+        if "resource_already_exists" in str(e).lower() or "400" in str(e):
+            print("index already exists")
+        else:
+            # PUT may return 400 via docker; try ignore
+            print("create_index note:", e)
+            time.sleep(1)
+            create_index(base, recreate=False)
+
     if not args.skip_bulk:
         if not args.ndjson.is_file():
             print("NDJSON ausente. Rode: python scripts/seed/generate_data.py", file=sys.stderr)
             sys.exit(1)
-        n = bulk_index(args.es, args.ndjson)
+        n = bulk_index(base, args.ndjson)
         print(f"bulk indexed ~{n} actions")
-    print("count", count_docs(args.es))
-    validate_aggs(args.es)
+    print("count", count_docs(base))
+    validate_aggs(base)
 
 
 if __name__ == "__main__":

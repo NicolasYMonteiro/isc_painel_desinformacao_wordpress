@@ -15,9 +15,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SEED_DIR = ROOT / "scripts" / "seed"
 NDJSON = ROOT / "data" / "generated" / "desinfo_events.ndjson"
-ES = "http://localhost:9200"
 WP = "http://localhost:8080"
 KIBANA = "http://localhost:5601"
+
+sys.path.insert(0, str(SEED_DIR))
+from es_http import wait_ready  # noqa: E402
 
 
 def wait_url(url: str, name: str, attempts: int = 90) -> None:
@@ -78,7 +80,7 @@ def setup_wordpress() -> None:
 
 def main() -> None:
     print("=== DSN-DASH demo bootstrap ===")
-    wait_url(ES, "Elasticsearch")
+    es_base = wait_ready()
     wait_url(WP, "WordPress")
     wait_url(f"{KIBANA}/api/status", "Kibana")
 
@@ -92,14 +94,16 @@ def main() -> None:
             sys.executable,
             str(SEED_DIR / "index_to_es.py"),
             "--es",
-            ES,
+            es_base,
             "--recreate",
             "--ndjson",
             str(NDJSON),
         ]
     )
-    run([sys.executable, str(SEED_DIR / "validate_catalogs.py"), "--es", ES])
+    run([sys.executable, str(SEED_DIR / "validate_catalogs.py"), "--es", es_base])
     run([sys.executable, str(SEED_DIR / "setup_kibana.py")])
+    run([sys.executable, str(SEED_DIR / "compute_kpis_tema.py")])
+    run([sys.executable, str(SEED_DIR / "compute_kpis_plataforma.py")])
     setup_wordpress()
 
     print()
@@ -108,6 +112,7 @@ def main() -> None:
     print("  http://localhost:8080/por-plataforma/")
     print("  Admin WP: http://localhost:8080/wp-admin  (admin / adminchangeme)")
     print("  Dados fictícios — demonstração")
+    print("  ES: sem porta no host (RNF-009); seed via docker exec se necessário")
 
 
 if __name__ == "__main__":

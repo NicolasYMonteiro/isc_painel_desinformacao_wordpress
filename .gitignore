@@ -9,6 +9,8 @@ docker/.env
 .DS_Store
 .cursor/
 node_modules/
+test-results/
+playwright-report/
 .idea/
 data/generated/
 *.ndjson

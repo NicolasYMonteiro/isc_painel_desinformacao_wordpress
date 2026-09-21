@@ -26,7 +26,8 @@ def test_compose_ports():
     kb_ports = data["services"]["kibana"].get("ports", [])
     shiny_ports = data["services"]["shiny"].get("ports", [])
     assert any("8080" in str(p) for p in wp_ports)
-    assert any("9200" in str(p) for p in es_ports)
+    # BUG-004 / RNF-009: ES não deve publicar 9200 no host
+    assert not any("9200" in str(p) for p in es_ports)
     assert any("5601" in str(p) for p in kb_ports)
     assert any("3838" in str(p) for p in shiny_ports)
 

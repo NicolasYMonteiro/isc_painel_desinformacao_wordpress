@@ -1,0 +1,14 @@
+id_origem,tipo_origem,titulo,destino_task,destino_test,destino_doc,criterio_aceite_resumo,status_design
+RF-001,RF,Página Por Tema,TASK-009b,TEST-022b,docs/03-architecture/design-carrossel-v2.md,Mosaico 4 slides Tema (T1-T4),done
+RF-002,RF,Página Por Plataforma,TASK-010b,TEST-023b,docs/03-architecture/design-carrossel-v2.md,Mosaico 4 slides Plataforma (P1-P4),done
+RF-003,RF,Carrossel lateral sem scroll no host,TASK-008b;BUG-001,TEST-021b,docs/03-architecture/mosaico-padroes.md,Shell fullscreen sem scroll de pagina,done
+RF-004,RF,Quatro slides na página Por Tema,TASK-009b,TEST-022b,docs/03-architecture/design-carrossel-v2.md,4 slides Tema C/A/A/D,done
+RF-005,RF,Quatro slides na página Por Plataforma,TASK-010b,TEST-023b,docs/03-architecture/design-carrossel-v2.md,4 slides Plataforma C/B/B/B,done
+RNF-001,RNF,Troca de slide menor que 300ms,TASK-008b,TEST-021b,docs/03-architecture/design-carrossel-v2.md,Swiper preservado,done
+RNF-002,RNF,Sem scroll vertical no host,BUG-001,TEST-021b,wp-content/plugins/dsn-dashboard/assets/css/dsn-dashboard.css,body fixed + chrome tema oculto,done
+RNF-003,RNF,Primeiro embed util menor que 5s,TASK-009b;TASK-010b,TEST-022b;TEST-023b,docs/03-architecture/mosaico-padroes.md,KPIs host + embeds Kibana,done
+RNF-005,RNF,Homogeneidade visual tokens,TASK-008b;TASK-009b;TASK-010b,TEST-021b;TEST-022b;TEST-023b,docs/03-architecture/mosaico-padroes.md,tokens --dsn-*,done
+US-004,US,Explorar slides Por Tema,TASK-009b,TEST-022b,docs/03-architecture/design-carrossel-v2.md,T1-T4,done
+US-005,US,Explorar slides Por Plataforma,TASK-010b,TEST-023b,docs/03-architecture/design-carrossel-v2.md,P1-P4,done
+TEST-022b,TEST,Mosaico pagina Tema,TASK-009b,TEST-022b,docs/04-tasks/backlog-tecnico.md,Checklist T1-T4,done
+TEST-023b,TEST,Mosaico pagina Plataforma,TASK-010b,TEST-023b,docs/04-tasks/backlog-tecnico.md,Checklist P1-P4,done

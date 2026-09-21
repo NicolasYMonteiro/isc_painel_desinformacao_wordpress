@@ -179,7 +179,6 @@ test.describe('DSN-DASH QA validation', () => {
   });
 
   test('RNF-009 ES exposure from browser context (informational)', async ({ page }) => {
-    // Attempts fetch to ES from page origin — CORS/network result documented
     await page.goto('/por-tema/');
     const result = await page.evaluate(async () => {
       try {
@@ -189,15 +188,16 @@ test.describe('DSN-DASH QA validation', () => {
         return { ok: false, error: String(e) };
       }
     });
-    // Also direct request from test runner (simulates browser can reach port)
     let direct = null;
     try {
       const r = await page.request.get('http://localhost:9200/');
       direct = { status: r.status() };
     } catch (e) {
-      direct = { error: String(e) };
+      direct = { error: String(e), unreachable: true };
     }
     fs.writeFileSync(path.join(OUT, 'es-exposure.json'), JSON.stringify({ result, direct }, null, 2));
+    // BUG-004: porta 9200 não publicada — request do runner deve falhar
+    expect(direct.unreachable || (direct.status && direct.status >= 400)).toBeTruthy();
   });
 
   test('homogeneity tokens RNF-005', async ({ page }) => {

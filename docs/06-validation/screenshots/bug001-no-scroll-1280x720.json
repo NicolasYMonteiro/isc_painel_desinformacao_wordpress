@@ -1,0 +1,11 @@
+{
+  "viewport": {
+    "w": 1280,
+    "h": 720
+  },
+  "hasScroll": false,
+  "bodyFixed": true,
+  "bodyOverflow": "hidden",
+  "dashFixed": true,
+  "headerHidden": true
+}

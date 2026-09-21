@@ -1,0 +1,45 @@
+{
+  "slice": {
+    "dimension": "platform",
+    "value": "Facebook"
+  },
+  "period": {
+    "base": 2024,
+    "compare": 2023
+  },
+  "generated_from": "desinfo_events",
+  "kpis": [
+    {
+      "id": "kpi-events",
+      "label": "Eventos Facebook 2024",
+      "value": 2489,
+      "format": "int",
+      "delta_pct": -7.3,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-engagement",
+      "label": "Engajamento soma 2024",
+      "value": 1126897,
+      "format": "int",
+      "delta_pct": -3.0,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-share",
+      "label": "Share no total 2024",
+      "value": 25.3,
+      "format": "pct",
+      "delta_pct": 2.0,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-theme",
+      "label": "Eventos economia 2024",
+      "value": 203,
+      "format": "int",
+      "delta_pct": null,
+      "period_label": "vs 2023"
+    }
+  ]
+}

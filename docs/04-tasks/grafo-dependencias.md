@@ -21,8 +21,11 @@ flowchart TD
   T006[TASK-006_Plugin]
   T007[TASK-007_PaginasNav]
   T008[TASK-008_Swiper]
+  T008b[TASK-008b_MosaicoShell]
   T009[TASK-009_SlidesTema]
+  T009b[TASK-009b_MosaicoTema]
   T010[TASK-010_SlidesPlat]
+  T010b[TASK-010b_MosaicoPlat]
   T011[TASK-011_IframeKibana]
   T012[TASK-012_IframeShiny]
   T013[TASK-013_Homogeneidade]
@@ -47,6 +50,11 @@ flowchart TD
   T008 --> T009
   T007 --> T010
   T008 --> T010
+  T008 --> T008b
+  T008b --> T009b
+  T009 --> T009b
+  T008b --> T010b
+  T010 --> T010b
   T007 --> T015
   T008 --> T017
   T009 --> T014
@@ -64,9 +72,12 @@ flowchart TD
   T013 --> T020
   T016 --> T020
   T017 --> T020
+  T009b --> T020
+  T010b --> T020
 ```
 
 TASK-019 é **isolada** (sem arestas de dependência de implementação).
+TASK-008b/009b/010b formam a **onda mosaico v2** (após v1 slides + Swiper).
 
 ---
 
@@ -81,10 +92,12 @@ TASK-001
 TASK-002, TASK-006          (após 001; paralelos)
 TASK-003, TASK-007, TASK-008 (003 após 002; 007/008 após 006)
 TASK-018, TASK-004, TASK-005, TASK-009, TASK-010, TASK-015, TASK-017
+TASK-008b                   (após 008; docs mosaico aprovados)
+TASK-009b, TASK-010b        (após 008b + 009/010)
 TASK-014                    (após 009, 010)
 TASK-011, TASK-012          (após 004+009+010 / 005+009+010)
 TASK-013, TASK-016          (após 011+012)
-TASK-020                    (após 013, 016, 017)
+TASK-020                    (após 013, 016, 017; também 009b/010b)
 TASK-019                    (qualquer momento; Won't)
 ```
 
@@ -129,6 +142,8 @@ Caminho alternativo quase tão longo (Shiny):
 2. **Seed dimensional completo** (TASK-003) — volume e reprodutibilidade
 3. **Homogeneidade Kibana vs Shiny** (TASK-013) — chrome Kibana
 4. **RAM Docker** (TASK-001 / 020) — ES+Kibana+WP+Shiny
+5. **Densidade mosaico / N embeds** (TASK-008b..010b) — RNF-003; preferir KPIs host + 1 dashboard multi-painel
+6. **Viewport vs tema WP** (TASK-008b / BUG-001) — 100vh do mosaico
 
 ---
 
@@ -137,7 +152,8 @@ Caminho alternativo quase tão longo (Shiny):
 - [x] Grafo sem ciclos
 - [x] Ordem topológica documentada
 - [x] Caminho crítico identificado
+- [x] Onda mosaico TASK-008b..010b ligada ao DAG
 
 ## Próximo passo
 
-Iniciar implementação pela cabeça do caminho crítico: **TASK-001**.
+Após aprovação dos docs de mosaico: **TASK-008b** (shell CSS Grid).

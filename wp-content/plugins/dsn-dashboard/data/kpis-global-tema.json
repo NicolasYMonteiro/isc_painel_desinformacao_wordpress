@@ -1,0 +1,45 @@
+{
+  "slice": {
+    "dimension": "global",
+    "value": "all"
+  },
+  "period": {
+    "base": 2024,
+    "compare": 2023
+  },
+  "generated_from": "desinfo_events",
+  "kpis": [
+    {
+      "id": "kpi-events",
+      "label": "Eventos 2024",
+      "value": 9853,
+      "format": "int",
+      "delta_pct": -8.9,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-engagement",
+      "label": "Engajamento soma 2024",
+      "value": 4329203,
+      "format": "int",
+      "delta_pct": -10.2,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-themes",
+      "label": "Temas com volume",
+      "value": 15,
+      "format": "int",
+      "delta_pct": 0.0,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-leader",
+      "label": "Lider YouTube",
+      "value": 25.8,
+      "format": "pct",
+      "delta_pct": 3.6,
+      "period_label": "vs 2023"
+    }
+  ]
+}

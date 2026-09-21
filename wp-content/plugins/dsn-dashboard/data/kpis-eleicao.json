@@ -1,0 +1,45 @@
+{
+  "slice": {
+    "dimension": "theme",
+    "value": "eleicao"
+  },
+  "period": {
+    "base": 2024,
+    "compare": 2023
+  },
+  "generated_from": "desinfo_events",
+  "kpis": [
+    {
+      "id": "kpi-events",
+      "label": "Eventos eleicao 2024",
+      "value": 657,
+      "format": "int",
+      "delta_pct": -7.6,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-engagement",
+      "label": "Engajamento soma 2024",
+      "value": 287859,
+      "format": "int",
+      "delta_pct": -12.5,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-share",
+      "label": "Share no total 2024",
+      "value": 6.7,
+      "format": "pct",
+      "delta_pct": 1.5,
+      "period_label": "vs 2023"
+    },
+    {
+      "id": "kpi-leader",
+      "label": "Eventos Facebook 2024",
+      "value": 173,
+      "format": "int",
+      "delta_pct": 3.6,
+      "period_label": "vs 2023"
+    }
+  ]
+}
